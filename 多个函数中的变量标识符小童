@@ -1,0 +1,63 @@
+源程序如下，main函数做了适当的简化，只保留了出现问题的部分。main函数调用
+Is_Perfect_Number，进入函数中，第40行定义int i = 2；接下来就出现了意料
+之外的情况，用VS2017单步调试中，发现第43行调用isprime之后，i的值成为了未
+定义的（-858993460），导致了第48行while循环以及之后的程序发生错误。
+
+起初Orange推测是isprime和Is_Perfect_Number中同时定义了i变量导致的错误，但当Is_Perfect_Number
+中的i变量更改名字后发现仍然有相同的错误出现。（尽管Orange并不认为是变量名字相同导致的错误）。等
+Orange找到错误根源之后再来更新
+
+#include<stdio.h>
+#include<math.h>
+int isprime(int);
+int Is_Perfect_Number(int);
+int main()
+{
+	int bol;
+	
+    bol = Is_Perfect_Number(4);
+	return 0;
+}
+
+int isprime(int num)
+{
+	int i, j;
+	
+	i = 2;
+	j = sqrt(num);
+	while (i <= j) {
+		if (num % i == 0)
+			break;
+		i++;
+	}
+
+	if (i > j)
+		return 1;
+	else
+		return 0;
+
+}
+
+int Is_Perfect_Number(int num)
+{
+	int factor[100], i, index, temp;
+
+	temp = sqrt(num);
+	i = 2;
+	index = 0;
+	if (isprime(num))
+		return 0;
+	else{
+		while (i <= temp)
+			if (num % i == 0)
+				factor[index++] = i++;
+		int i, sum;
+		sum = 0;
+		for (i = 0; i < index; i++)
+			sum += factor[i];
+		if (sum == num)
+			return 1;
+		else
+			return 0;
+	}
+}
