@@ -4,8 +4,8 @@ Is_Perfect_Number，进入函数中，第40行定义int i = 2；接下来就出�
 定义的（-858993460），导致了第48行while循环以及之后的程序发生错误。
 
 起初Orange推测是isprime和Is_Perfect_Number中同时定义了i变量导致的错误，但当Is_Perfect_Number
-中的i变量更改名字后发现仍然有相同的错误出现。（尽管Orange并不认为是变量名字相同导致的错误）。等
-Orange找到错误根源之后再来更新
+中的i变量更改名字后发现仍然有相同的错误出现。（尽管Orange并不认为是变量名字相同导致的错误）。等Orange
+发现问题之后再来更新
 
 #include<stdio.h>
 #include<math.h>
