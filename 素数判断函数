@@ -1,0 +1,23 @@
+问题源代码:
+
+int isprime(int num)
+{
+	int i, j;
+	
+	i = 2;
+	j = sqrt(num);
+	while (i++ <= j) {
+		if (num % i == 0)
+			break;
+	}
+	
+	if (i > j)
+		return 1;
+	else
+		return 0;
+
+}
+
+这一段代码通过循环结束后比较i值与j值的大小来判断num是否为素数，但是测试时发现isprime(6)返回值为1，
+即6为素数，这显然是错的。问题出在第9行while(i++ <= j)中的i++，在最后一轮i不满足循环条件判断时仍然
+自加了1，导致了错误，如果把i++放到while循环里面就不会出现这个问题。
