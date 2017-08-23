@@ -1,0 +1,20 @@
+1.应该使用typedef而不是#define来创建新类型名，因为后者无法正确地处理指针类型。例如：
+
+#define d_ptr_to_char char*
+d_ptr_to_char a, b;
+
+正确地声明了a，但是b却被声明为一个字符。在定义更为复杂的类型名字时，如函数指针或指向数组的指针，使用typedef更为合适。
+
+int (*pmax)(int a, int b) = max; //指向函数的指针，假设之前已经定义了函数 int max(int a. int b);
+
+//用typedef来定义
+typedef int(*pt)(int a, int b);
+pt pmax = max;
+
+2.#define指令是另一种创建名字常量的机制。例如，下面这两个声明都为50这个值创建了名字常量
+
+#define MAX_ELEMENTS 50
+int     const max_elements 50;
+
+在这种情况下，使用#define比使用const变量更好。因为只要允许使用字面值常量的地方都可以使用前者，比如声明数组的长度。
+const变量只能用于允许使用变量的地方
