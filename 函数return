@@ -1,0 +1,46 @@
+在读《C和指针》的函数部分时，对return产生了疑惑，于是在VS2017中简单的测试了一下。
+
+这是两个定义在main函数之前的测试函数，都没有return语句。
+
+int test1()
+{
+	printf("This is test1");
+}
+
+void test2()
+{
+	printf("This is test2 ");
+}
+
+在main函数中调用两个函数
+int main()
+{
+  /*
+  
+  */
+  test1();
+  test2();
+  
+  return 0;
+}
+
+编译运行，发现错误：C4716	“test1”: 必须返回一个值。
+
+当把test1函数改成如下：
+int test1()
+{
+	printf("This is test1");
+
+	return;
+}
+
+编译运行，仍发现相同的错误提示。 说明有返回值类型的函数必须由return语句从函数体返回调用函数。
+
+而 void 类型的函数不必须由return返回，当没有return时，函数执行到函数体末尾隐式地返回，当有return语句时，
+在return处返回。可以由下面函数验证。
+
+void test2()
+{
+	return;
+	printf("This is test2 ");
+}
