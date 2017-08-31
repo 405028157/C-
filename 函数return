@@ -44,3 +44,5 @@ void test2()
 	return;
 	printf("This is test2 ");
 }
+
+另外，返回值为 void 类型的函数在函数体内不可以 return + 表达式 ，编译器会给出错误警告。
