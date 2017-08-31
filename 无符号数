@@ -8,3 +8,14 @@ if( strlen(x) - strlen(y) >= 0 ) ...
 
 但事实上它们是不相等的。第1条语句将按你预想的那样工作，但第2条语句的结果将永远为真。strlen的结果是个无符号数，
 所以操作符>=左边的表达式也将是无符号数，而无符号数不可能是负的。
+
+如果是 strlen(x) - 10 呢 ， 答案是运算的结果还是无符号整型，恒为正，原因是 10 转化成了无符号整型
+
+下面排名较低的操作数类型被转化为排名较高的类型
+long double
+double
+float
+unsigned long int
+long int
+unsigned int
+int
