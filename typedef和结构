@@ -1,0 +1,16 @@
+下面用 typedef 创建类型名 SELF_REF3 的方式是错误的：
+
+typedef struct {
+    int a;
+    SELF_REF3 *b;
+    int c;
+} SELF_REF3 ;
+
+错误在类型名直到声明的末尾才定义，所以在结构声明的内部它尚未定义。
+
+定义一个 结构标签 来声明b之后是正确的。
+typedef struct SELF_REF3_TAG {
+    int a;
+    SELF_REF3_TAG *b;
+    int c;
+} SELF_REF3 ;
