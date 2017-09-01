@@ -1,0 +1,37 @@
+首先定义一个结构和一个结构数组：
+
+  struct NODE {
+		int a;
+		struct NODE *b;
+		struct NODE *c;
+	};
+	struct NODE nodes[5] = {
+		{5, nodes + 3, NULL},
+		{15,nodes + 4, nodes + 3},
+		{15,NULL,      nodes + 3},
+		{15,nodes + 4, nodes    },
+		{15,nodes + 4, nodes + 2},
+	};
+  
+  接下来：
+  
+  1. *nodes 的值是什么？         答案是 {5,nodes + 3, NULL}
+  2. 是不是可以从1中得到结论，因为 nodes 是数组的标识符，所以 *nodes 是数组的首个元素（结构），进一步得出 nodes->a 是错误的使用方法？
+     这是起初的思路，但是当我验证的时候，发现 nodes->a 是可以正常使用的，它的值是5.
+  3. 2中的思路是受一个例子的误导：
+  
+  typedef struct test{
+        int  a;
+        char b[10]
+  } Ex ;
+ 
+  Ex  apple = { 12, "apple" };
+  EX  *po = &apple; 
+  int *pi;
+  结构 apple 的地址和它的第1个成员 a 的地址是相同的， 但是 pi = po; 是错误的，因为它们的类型不匹配。 pi = (int)po; 或者 pi = &po->a; 才是正确的。
+  
+  这是一个结构的例子，而在数组中：
+  struct NODE klsa = *nodes;  //正确
+  struct NODE *po  = nodes;
+  int test2        = nodes->a;
+  int test         = po->a;    //与上一行等价
