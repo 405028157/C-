@@ -36,3 +36,5 @@ int main()
 
 	return 0;
 }
+
+Blame模式可以看到错误的程序和纠正后的程序。
