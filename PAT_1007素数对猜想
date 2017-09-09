@@ -28,8 +28,8 @@ int main()
 	for (LastPrime = array[0], ThisPrime = array[1], i = 1; i + 1 < index; i++) {
 		if(ThisPrime - LastPrime == 2)
 			cnt++;
-		ThisPrime = array[i];
-		LastPrime = array[i + 1];
+		ThisPrime = array[i + 1];
+		LastPrime = array[i];
 	}
 
 	printf("%d", cnt);
