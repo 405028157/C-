@@ -1,0 +1,38 @@
+//第i和素数不可能和第i-2个素数差为2，因为如果是的话，它与第i-1差只能为1， i和i-1中必有偶数（不是素数）
+#include<stdio.h>
+#include<math.h>
+
+int main()
+{
+	int N, i, j, cnt, index, LastPrime, ThisPrime;
+	int Isprime;
+	int array[10000] = { 0 };
+
+	index = 0;
+	cnt   = 0;
+	Isprime = 1;
+	scanf("%d", &N);
+
+	//找出不大于N的所有素数，存在数组array里
+	for (i = 2; i <= N; i++) {
+		for (j = 2; j <= sqrt(i); j++)
+			if (i % j == 0) {
+				Isprime = 0;
+				break;
+			}
+		if (Isprime)
+			array[index++] = i;
+		Isprime = 1;
+	}
+	
+	for (LastPrime = array[0], ThisPrime = array[1], i = 1; i + 1 < index; i++) {
+		if(ThisPrime - LastPrime == 2)
+			cnt++;
+		ThisPrime = array[i];
+		LastPrime = array[i + 1];
+	}
+
+	printf("%d", cnt);
+
+	return 0;
+}
