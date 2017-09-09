@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct {
+	char name[11];
+	char StuNum[11];
+	int  grade;
+} Student;
+
+int main()
+{
+	int i, n;
+	Student *po, *Start_po, *Max_pointer, *Min_pointer;
+
+	scanf("%d", &n);
+	po = (Student *)malloc(sizeof(Student) * n);
+	Start_po = po;
+	for (i = 0; i < n; i++) {
+		scanf("%s", po->name);
+		scanf("%s", po->StuNum);
+		scanf("%d", po->grade);
+		po++;
+	}
+	
+	Max_pointer = Start_po;
+	Min_pointer = Start_po;
+	for (i = 0, po = Start_po++; i < n - 1; i++, po++) {
+		if (Max_pointer->grade < po->grade)
+			Max_pointer = po;
+		if (Min_pointer->grade > po->grade)
+			Min_pointer = po;
+	}
+	
+	printf("%s %s\n", Max_pointer->name, Max_pointer->StuNum);
+	printf("%s %s", Min_pointer->name, Min_pointer->StuNum);
+
+	return 0;
+}
