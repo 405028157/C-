@@ -1,0 +1,58 @@
+//本题要求Merge(L1,L2)之后L1->Next,L2->Next指针指向NULL，由于函数接口没有传递指针的地址，所以只能修改L1->Next，L2->Next，即他们指向的值,所以在函数中L1 = L1->Next 之前要先做一个拷贝
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef int ElementType;
+typedef struct Node *PtrToNode;
+struct Node {
+	ElementType Data;
+	PtrToNode   Next;
+};
+typedef PtrToNode List;
+List Merge(List L1, List L2)
+{
+	List Copy_L1, Copy_L2;
+	List f, r;
+	
+	Copy_L1 = L1; Copy_L2 = L2;
+	f = (List)malloc(sizeof(struct Node));       
+	r = f;
+	f->Next = NULL;
+
+	while (L1->Next != NULL && L2->Next != NULL) {
+		if (L1->Data < L2->Data) {
+			r->Next = L1;
+			r = L1;
+			L1 = L1->Next;
+		}
+		else if (L1->Data > L2->Data) {
+			r->Next = L2;
+			r = L2;
+			L2 = L2->Next;
+		}
+		else {
+			r->Next = L1;
+			r = L1;
+			L1 = L1->Next;
+			r->Next = L2;
+			r = L2;
+			L2 = L2->Next;
+		}
+	}
+
+	for (; L1->Next; L1 = L1->Next) {
+		r->Next = L1;
+		r = L1;
+		L1 = L1->Next;
+	}
+	for (; L2->Next; L2 = L2->Next) {
+		r->Next = L2;
+		r = L2;
+		L2 = L2->Next;
+	}
+
+	Copy_L1->Next = NULL;
+	Copy_L2->Next = NULL;
+
+	return f;
+}
