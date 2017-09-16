@@ -19,8 +19,8 @@ List Merge(List L1, List L2)
 	r = f;
 	f->Next = NULL;
 
-	while (L1->Next != NULL && L2->Next != NULL) {
-		if (L1->Data < L2->Data) {
+	while (L1->Next != NULL && L2->Next != NULL) {            
+		if (L1->Data < L2->Data) {                          //这里L1->Data和L2->Data都是头结点的Data,没有意义
 			r->Next = L1;
 			r = L1;
 			L1 = L1->Next;
