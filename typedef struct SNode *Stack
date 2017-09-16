@@ -1,0 +1,17 @@
+错误的：
+struct SNode {
+	int *Data;
+	int top;
+	int Maxsize;
+};
+
+typedef SNode *Stack;
+
+正确的：
+struct SNode {
+	int *Data;
+	int top;
+	int Maxsize;
+};
+
+typedef struct SNode *Stack;
