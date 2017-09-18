@@ -1,0 +1,77 @@
+#include<stdio.h>
+#define MAXTREE 10
+#define Null -1
+
+struct Tree {
+	char Element;
+	int  left;
+	int  right;
+};
+typedef struct Tree Tree;
+int Check[10];
+Tree T1[MAXTREE], T2[MAXTREE];
+
+int Initial(Tree T[])
+{
+	int n, i, root;
+	char cl, cr;
+	
+	for (i = 0; i < MAXTREE; i++)
+		Check[i] = 0;
+	root = Null;
+	scanf("%d", &n);
+	if (n) {
+		for (i = 0; i < n; i++) {
+			scanf("%c %c %c\n", &T[i].Element, &cl, &cr);         注意这里的%c %c %c\n最后的换行符！ 如果没有的话，回车也会被赋值！
+			if (cl != '-') {
+				T[i].left = cl - '0';
+				Check[T[i].left] = 1;
+			}
+			else
+				T[i].left = Null;
+
+			if (cr != '-') {
+				T[i].right = cr - '0';
+				Check[T[i].right] = 1;
+			}
+			else
+				T[i].right = Null;
+		}
+	}
+
+	//for(i = 0; i < MAXTREE; i++)    MAXTREE是错的，应该用n, 因为如果 n < MAXTREE， 那么root就被赋了错误的值
+	for (i = 0; i < n; i++)
+		if (!Check[i]) root = i;
+
+	return root;
+}
+
+int isomorphic(int root1, int root2)
+{
+	if (root1 == Null && root2 == Null)
+		return 1;
+	if (root1 = Null && root2 != Null || root1 != Null && root2 == Null)
+		return 0;
+	if (T1[root1].Element != T2[root2].Element)
+		return -1;
+	if (T1[root1].left == Null && T2[root2].left == Null)
+		isomorphic(T1[root1].right, T1[root2].right);
+	if (T1[root1].left != Null && T2[root2].left != NULL && T1[T1[root1].left].Element == T2[T2[root2].left].Element)
+		return (isomorphic(T1[root1].left, T2[root2].left) && isomorphic(T1[root1].right, T2[root2].right));
+	else
+		return (isomorphic(T1[root1].left, T2[root2].right) && isomorphic(T1[root1].right, T2[root2].left));
+
+}
+
+int main()
+{
+	int R1, R2;
+	R1 = Initial(T1);
+	R2 = Initial(T2);
+	if (isomorphic(R1, R2))
+		printf("YES");
+	else
+		printf("No");
+
+	return 0;
+}
